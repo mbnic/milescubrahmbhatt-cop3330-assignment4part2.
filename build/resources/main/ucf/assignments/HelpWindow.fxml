@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="371.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.HelpWindowController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2264a1" height="58.0" stroke="BLACK" strokeType="INSIDE" width="580.0" />
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="14.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INSTRUCTIONS (DEDICATED TO REY)">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextArea editable="false" layoutY="58.0" prefHeight="313.0" prefWidth="679.0" text="Creating a task:&#10;&#9;To add a new task, type the description in the text box at the bottom and then select a due date using the date picker.&#10;&#9;Press “Add Task” when you have typed in a description and entered a due date.&#10;&#10;Remove a task:&#10;&#9;To remove a task, click the task that you want to delete and then press “Remove Task.”&#10;&#10;Editing a task:&#10;&#9;▪&#9;To change a task’s status, click the task and then press “Change Item Status.”&#10;&#9;▪&#9;To edit a task’s description, click on the task’s description in the table and type in the new description.&#10;&#9;▪&#9;To change a task’s due date, click the task and the press “Change Item Due Date”&#10;&#10;Saving your tasks:&#10;&#9;Click File  -&gt; Save and then select where on your computer you wish to save your tasks.&#10;&#10;Uploading your tasks:&#10;&#9;Click File -&gt; Load and then select the file with your tasks and click “Open.”" />
+      <Button fx:id="closeButton" layoutX="580.0" layoutY="-5.0" mnemonicParsing="false" onAction="#closeButtonClicked" prefHeight="65.0" prefWidth="99.0" text="CLOSE" />
+   </children>
+</AnchorPane>

@@ -1,25 +1,20 @@
 package ucf.assignments;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Item {
     private SimpleStringProperty description;
     private SimpleStringProperty dueDate;
-    private SimpleBooleanProperty completionStatus;
+    private SimpleStringProperty completionStatus;
 
-    public Item(String description, String dueDate, boolean completionStatus) {
+    public Item(String completionStatus, String description, String dueDate) {
         this.description = new SimpleStringProperty(description);
         this.dueDate = new SimpleStringProperty(dueDate);
-        this.completionStatus = new SimpleBooleanProperty(completionStatus);
+        this.completionStatus = new SimpleStringProperty(completionStatus);
     }
 
     public String getDescription() {
         return description.get();
-    }
-
-    public SimpleStringProperty descriptionProperty() {
-        return description;
     }
 
     public void setDescription(String description) {
@@ -30,23 +25,15 @@ public class Item {
         return dueDate.get();
     }
 
-    public SimpleStringProperty dueDateProperty() {
-        return dueDate;
-    }
-
     public void setDueDate(String dueDate) {
         this.dueDate.set(dueDate);
     }
 
-    public boolean isCompletionStatus() {
+    public String getCompletionStatus() {
         return completionStatus.get();
     }
 
-    public SimpleBooleanProperty completionStatusProperty() {
-        return completionStatus;
-    }
-
-    public void setCompletionStatus(boolean completionStatus) {
+    public void setCompletionStatus(String completionStatus) {
         this.completionStatus.set(completionStatus);
     }
 }

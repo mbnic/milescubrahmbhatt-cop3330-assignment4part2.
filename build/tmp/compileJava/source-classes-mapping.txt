@@ -1,0 +1,10 @@
+ucf/assignments/Item.java
+ ucf.assignments.Item
+ucf/assignments/ListModel.java
+ ucf.assignments.ListModel
+ucf/assignments/HelpWindowController.java
+ ucf.assignments.HelpWindowController
+ucf/assignments/App.java
+ ucf.assignments.App
+ucf/assignments/MainWindowController.java
+ ucf.assignments.MainWindowController

@@ -17,7 +17,6 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         try {
-
             ListModel listModel = new ListModel();
             MainWindowController mainWindowController = new MainWindowController(listModel);
 
@@ -30,18 +29,6 @@ public class App extends Application {
             stage.setTitle("To-Do List");
             stage.setScene(new Scene(root));
             stage.show();
-
-
-//            ItemEditController controller = loader.getController();
-//            controller.initialize(item, itemModel);
-//
-//               fx:controller="ucf.assignments.MainWindowController"
-
-
-//            Stage stage = new Stage();
-//            stage.setTitle("Edit Item");
-//            stage.setScene(new Scene(root));
-//            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
