@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ucf.assignments.MainWindowControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-07-26T00:01:24" hostname="Nics-MacBook-Pro.local" time="0.063">
+  <properties/>
+  <testcase name="changeItemStatus()" classname="ucf.assignments.MainWindowControllerTest" time="0.036"/>
+  <testcase name="editTaskDescription()" classname="ucf.assignments.MainWindowControllerTest" time="0.003"/>
+  <testcase name="changeItemDueDate()" classname="ucf.assignments.MainWindowControllerTest" time="0.003"/>
+  <testcase name="addTask()" classname="ucf.assignments.MainWindowControllerTest" time="0.003"/>
+  <testcase name="clearAllTasks()" classname="ucf.assignments.MainWindowControllerTest" time="0.004"/>
+  <testcase name="removeTask()" classname="ucf.assignments.MainWindowControllerTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

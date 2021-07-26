@@ -1,0 +1,69 @@
+ @startuml
+'https://plantuml.com/class-diagram
+
+class MainWindowController {
+    private ListModel listModel;
+
+    MainWindowController(ListModel listModel)
+
+    editTaskDescription()
+    changeItemDueDatePickerClicked()
+    changeItemStatusButtonClicked()
+    viewIncompleteOptionClicked()
+    viewCompleteOptionClicked()
+    viewAllOptionClicked()
+    addTaskClicked()
+    removeTaskClicked()
+    clearAllTasksClicked()
+    saveMenuItemClicked()
+    loadMenuItemClicked()
+    aboutMenuItemClicked()
+
+    loadFile(File file)
+    saveFile(File file)
+}
+
+class ListModel {
+    private ObservableList<Item> allItems;
+    private ObservableList<Item> incompleteItems;
+    private ObservableList<Item> completeItems;
+
+    ListModel()
+
+    changeItemStatus(Item item)
+    addItem(Item item)
+    removeItem(Item item)
+    boolean isCorrectDescriptionLength(String newDescription)
+    ObservableList<Item> getAllItems()
+    ObservableList<Item> getIncompleteItems()
+    ObservableList<Item> getCompleteItems()
+}
+
+
+class Item {
+    String title
+    String dueDate
+    String description
+    boolean complete = false
+
+    getters()
+    setters()
+}
+
+class HelpWindowController {
+    close()
+}
+
+class App {
+    main()
+    start()
+}
+
+
+javafx.Application <|-- App
+App <|-- MainWindowController
+MainWindowController <|-- ListModel
+MainWindowController -- HelpWindowController
+ListModel -- Item
+
+@enduml

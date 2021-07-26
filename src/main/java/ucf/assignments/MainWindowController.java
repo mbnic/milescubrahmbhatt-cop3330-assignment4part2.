@@ -58,35 +58,38 @@ public class MainWindowController implements Initializable {
         itemCompletionColumn.setCellValueFactory(new PropertyValueFactory<>("completionStatus"));
         itemCompletionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
-//        listModel.addItem(new Item("get milk", "85"));
-//        listModel.addItem(new Item("make money", "1912"));
-//        listModel.addItem(new Item("eat", "4/20"));
-//        listModel.addItem(new Item("lift", "1980"));
-
-
         tableView.setItems(listModel.getAllItems());
     }
 
     @FXML
     public void editTaskDescription(TableColumn.CellEditEvent<Item, String> CellEditEvent) {
+        //get item and send to editTaskDescription
+
         Item item = tableView.getSelectionModel().getSelectedItem();
-        item.setDescription(CellEditEvent.getNewValue());
+        editTaskDescription(item, CellEditEvent.getNewValue());
+        tableView.refresh();
     }
 
     @FXML
     public void changeItemDueDatePickerClicked(ActionEvent event) {
+        //get item, dueDate, and format it before sending to changeItemDueDate
+
         Item item = tableView.getSelectionModel().getSelectedItem();
         LocalDate dueDate = changeItemDueDatePicker.getValue();
         String newDateWithFormat = dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        item.setDueDate(newDateWithFormat);
+        changeItemDueDate(item, newDateWithFormat);
         changeItemDueDatePicker.setValue(null);
+        tableView.refresh();
     }
 
     @FXML
     public void changeItemStatusButtonClicked(ActionEvent actionEvent) {
+        //get selected item and send to changeStatus
+
         Item item = tableView.getSelectionModel().getSelectedItem();
-        listModel.changeItemStatus(item);
+        changeItemStatus(item);
+        tableView.refresh();
     }
 
     @FXML
@@ -106,12 +109,15 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void addTaskClicked(ActionEvent actionEvent) {
+        //get new info
         LocalDate dueDate = datePicker.getValue();
         String newDateWithFormat = dueDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String newDescription = newTaskDescription.getText();
 
+        //make sure follows requirements and then send to addTask
         if (listModel.isCorrectDescriptionLength(newDescription)) {
-            listModel.addItem(new Item("incomplete",newDescription, newDateWithFormat));
+            addTask(newDescription, newDateWithFormat);
+
             newTaskDescription.clear();
             datePicker.setValue(null);
             errorText.setText("");
@@ -123,20 +129,22 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void removeTaskClicked(ActionEvent actionEvent) {
+        //get item to send to removeTask
+
         Item item = tableView.getSelectionModel().getSelectedItem();
-        listModel.removeItem(item);
+        removeTask(item);
     }
 
     @FXML
     public void clearAllTasksClicked(ActionEvent actionEvent) {
-        listModel.getAllItems().clear();
-        listModel.getCompleteItems().clear();
-        listModel.getIncompleteItems().clear();
+        clearAllTasks();
         tableView.getItems().clear();
     }
 
     @FXML
     public void saveMenuItemClicked(ActionEvent event) {
+        //open new filechooser window and add the extension you'll use
+
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT Files", "*.txt");
@@ -144,6 +152,7 @@ public class MainWindowController implements Initializable {
 
         File file = fileChooser.showSaveDialog(stage);
 
+        //check if null
         if (file != null) {
             saveFile(file);
         }
@@ -151,13 +160,14 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void loadMenuItemClicked(ActionEvent event) {
+        //open new stage for fileChooser and set the extension to be used
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT Files", "*.txt");
         fileChooser.getExtensionFilters().add(extensionFilter);
-
         File file = fileChooser.showOpenDialog(stage);
 
+        //make sure user actually selected file
         try {
             loadFile(file);
         } catch (FileNotFoundException e) {
@@ -167,6 +177,7 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void aboutMenuItemClicked(ActionEvent event) {
+        //open stage and scene for the help window
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("HelpWindow.fxml"));
             Parent root = loader.load();
@@ -182,10 +193,37 @@ public class MainWindowController implements Initializable {
         }
     }
 
+    public void editTaskDescription(Item item, String description) {
+        item.setDescription(description);
+    }
+
+    public void changeItemDueDate(Item item, String dueDate) {
+        listModel.changeItemDueDate(item, dueDate);
+    }
+
+    public void changeItemStatus(Item item) {
+        listModel.changeItemStatus(item);
+    }
+
+    public void addTask(String newDescription, String newDateWithFormat) {
+        listModel.addItem(new Item("incomplete", newDescription, newDateWithFormat));
+    }
+
+    public void removeTask(Item item) {
+        listModel.removeItem(item);
+    }
+
+    public void clearAllTasks() {
+        listModel.getAllItems().clear();
+        listModel.getCompleteItems().clear();
+        listModel.getIncompleteItems().clear();
+    }
+
     public void loadFile(File file) throws FileNotFoundException {
         List<String> lines = new ArrayList<>();
         Scanner scanner = new Scanner(file);
 
+        //scan in all lines of info
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
 
@@ -193,6 +231,7 @@ public class MainWindowController implements Initializable {
                 lines.add(line);
         }
 
+        //separate info into different array indices
         for (int i = 0; i < lines.size(); i++) {
             String[] splits = lines.get(i).split("//");
 
@@ -208,6 +247,7 @@ public class MainWindowController implements Initializable {
 
         ObservableList<Item> allItems = listModel.getAllItems();
 
+        //build string of all items to put into the save file
         for (Item allItem : allItems) {
             completionStatus = allItem.getCompletionStatus();
             description = allItem.getDescription();
@@ -218,7 +258,7 @@ public class MainWindowController implements Initializable {
                     + "//" + dueDate + "\n");
         }
 
-
+        //write the date to the save file
         try {
             PrintWriter write = new PrintWriter(file);
             write.println(listData);

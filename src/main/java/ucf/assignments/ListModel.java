@@ -15,6 +15,10 @@ public class ListModel {
         completeItems = FXCollections.observableArrayList();
     }
 
+    public void changeItemDueDate(Item item, String dueDate) {
+        item.setDueDate(dueDate);
+    }
+
     public void changeItemStatus(Item item) {
         //was complete
         if (item.getCompletionStatus().equals("complete")) {
